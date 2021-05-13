@@ -160,6 +160,7 @@ Jhoan Zamora - [Github](https://github.com/jzamora5) / [Twitter](https://twitter
 David Ovalle - [Github](https://github.com/Nukemenonai) / [Twitter](https://twitter.com/disartDave)
 
 Aurelie Cedia - [Github](https://github.com/aureliewouy)
+
 Huy Nguyen - [Github](https://github.com/huy75)
 
 
