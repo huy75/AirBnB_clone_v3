@@ -9,6 +9,7 @@ from os import environ
 from flask import Flask, render_template
 import uuid
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 # app.jinja_env.trim_blocks = True
 # app.jinja_env.lstrip_blocks = True
 
@@ -19,7 +20,7 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/0-hbnb', strict_slashes=False)
+@app.route('/0-hbnb')
 def hbnb():
     """ HBNB is alive! """
     states = storage.all(State).values()
