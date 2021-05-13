@@ -3,9 +3,23 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    justify-content: flex-start;
 }
 header .logo {
     background: url("../images/logo.png") no-repeat;
     left: 20px;
     height: 100%;
+}
+
+header div{
+    align:right;
+    border-radius:100%;
+    width:40px;
+    height:40px;
+    padding:30px;
+    Background-color:#cccccc;
+}
+.available {
+    background-color: #ff545f;
 }
