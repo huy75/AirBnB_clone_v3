@@ -24,8 +24,10 @@ $.ajax({
   type: 'POST',
   url: 'http://0.0.0.0:5001/api/v1/places_search/',
   contentType: 'application/json',
-  data: ,
-  function () {
+  data: '{}'})
+  .done(function (data) {
+      for (let obj of data) {
+	   $('.places').append(obj.name);
+      }
   }
-
-});
+);
