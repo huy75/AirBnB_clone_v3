@@ -26,11 +26,13 @@ $.ajax({
   contentType: 'application/json',
   data: '{}'
 }).done(function (data) {
-  $.each(data, function (index, p) {
+  $.each(data, function (index, place) {
     const str =
-    <article>
+    `<article>
+	  <div class="title_box">
           <h2>${place.name}</h2>
           <div class="price_by_night">$${place.price_by_night}</div>
+	  </div>
           <div class="information">
             <div class="max_guest">${place.max_guest} Guests</div>
             <div class="number_rooms">${place.number_rooms} Bedrooms</div>

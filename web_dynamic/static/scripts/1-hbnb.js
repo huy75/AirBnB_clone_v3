@@ -13,6 +13,6 @@ $(document).ready(() => {
       delete checklist[$(this).attr('data-id')];
     }
     const amen = Object.values(checklist);
-    $('.amenities h4').text(amen.join(', ');)
+    $('.amenities h4').text(amen.join(', '));
   });
 });
