@@ -1,5 +1,6 @@
 $(document).ready(() => {
   const checklist = {};
+  let amen = [];
   $('INPUT:checkbox').change(function () {
     if ($(this).is(':checked')) {
       const key = $(this).attr('data-id');
@@ -9,6 +10,8 @@ $(document).ready(() => {
     if (!$(this).is(':checked')) {
       delete checklist[$(this).attr('data-id')];
     }
+    amen = Object.values(checklist);
+    $('.amenities h4').text(amen.join(', '));
   });
 
   $.get('http://0.0.0.0:5001/api/v1/status', data => {
@@ -27,7 +30,10 @@ $.ajax({
   data: '{}'
 }).done(function (data) {
   $.each(data, function (index, place) {
-    const str =
+    $.get('http://0.0.0.0:5001/api/v1/users/'+ place.user_id, data => {
+	const first = data.first_name
+	const last = data.last_name
+	const str =
     `<article>
 	  <div class="title_box">
           <h2>${place.name}</h2>
@@ -38,11 +44,14 @@ $.ajax({
             <div class="number_rooms">${place.number_rooms} Bedrooms</div>
             <div class="number_bathrooms">${place.number_bathrooms} Bathrooms</div>
           </div>
+	  <div class="user">
+            <b>Owner:</b> ${first} ${last}
+          </div>
           <div class="description">
             ${place.description}
           </div>
         </article>`;
     $('section.places').append(str);
-  });
+  });});
   }
 );
