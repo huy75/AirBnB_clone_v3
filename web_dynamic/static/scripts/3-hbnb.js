@@ -11,7 +11,7 @@ $(document).ready(() => {
     }
   });
 
-  $.get('http://0.0.0.0:1107/api/v1/status', data => {
+  $.get('http://0.0.0.0:5001/api/v1/status', data => {
     if (data.status === 'OK') {
       $('div#api_status').addClass('available');
     } else {
@@ -34,10 +34,11 @@ $.ajax({
     '<br />' + p.number_rooms + ' Bedroom</div>' +
     '<div class=\'number_bathrooms\'><br />' +
     p.number_bathrooms + ' Bathroom</div><br />' +
-    '<div class=\'user\'><b>' + p.user.first_name + p.user.last_name +
-    </div><div class=\'description\'>' +
+
+    '</div><div class=\'description\'>' +
     p.description + '</div></article>';
-    $(str).insertAfter('section.placesh1');
+    $('section.places').append(str);
   });
   }
 );
+//    '<div class=\'user\'><b> Owner </b> p.user.first_name + p.user.last_name
