@@ -27,18 +27,20 @@ $.ajax({
   data: '{}'
 }).done(function (data) {
   $.each(data, function (index, p) {
-    const str = '<article><div class=\'title_box\'><h2>' + p.name +
-    '</h2><div class=\'price_by_night\'>' + p.price_by_night +
-    '</div></div><div class=\'information\'><div class=\'max_guest\'>' +
-    p.max_guest + ' Guests<br /><div class=\'number_rooms\'>' +
-    '<br />' + p.number_rooms + ' Bedroom</div>' +
-    '<div class=\'number_bathrooms\'><br />' +
-    p.number_bathrooms + ' Bathroom</div><br />' +
-
-    '</div><div class=\'description\'>' +
-    p.description + '</div></article>';
+    const str =
+    <article>
+          <h2>${place.name}</h2>
+          <div class="price_by_night">$${place.price_by_night}</div>
+          <div class="information">
+            <div class="max_guest">${place.max_guest} Guests</div>
+            <div class="number_rooms">${place.number_rooms} Bedrooms</div>
+            <div class="number_bathrooms">${place.number_bathrooms} Bathrooms</div>
+          </div>
+          <div class="description">
+            ${place.description}
+          </div>
+        </article>`;
     $('section.places').append(str);
   });
   }
 );
-//    '<div class=\'user\'><b> Owner </b> p.user.first_name + p.user.last_name
