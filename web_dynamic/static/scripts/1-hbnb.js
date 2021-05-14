@@ -12,5 +12,7 @@ $(document).ready(() => {
     if (!$(this).is(':checked')) {
       delete checklist[$(this).attr('data-id')];
     }
+    const amen = Object.values(checklist);
+    $('.amenities h4').text(amen.join(', ');)
   });
 });
