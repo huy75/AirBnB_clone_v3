@@ -24,10 +24,20 @@ $.ajax({
   type: 'POST',
   url: 'http://0.0.0.0:5001/api/v1/places_search/',
   contentType: 'application/json',
-  data: '{}'})
-  .done(function (data) {
-      for (let obj of data) {
-	   $('.places').append(obj.name);
-      }
+  data: '{}'
+}).done(function (data) {
+  $.each(data, function (index, p) {
+    const str = '<article><div class=\'title_box\'><h2>' + p.name +
+    '</h2><div class=\'price_by_night\'>' + p.price_by_night +
+    '</div></div><div class=\'information\'><div class=\'max_guest\'>' +
+    p.max_guest + ' Guests<br /><div class=\'number_rooms\'>' +
+    '<br />' + p.number_rooms + ' Bedroom</div>' +
+    '<div class=\'number_bathrooms\'><br />' +
+    p.number_bathrooms + ' Bathroom</div><br />' +
+    '<div class=\'user\'><b>' + p.user.first_name + p.user.last_name +
+    </div><div class=\'description\'>' +
+    p.description + '</div></article>';
+    $(str).insertAfter('section.placesh1');
+  });
   }
 );
