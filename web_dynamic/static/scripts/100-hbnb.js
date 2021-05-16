@@ -62,15 +62,14 @@ const checkCities = function () {
   });
 };
 
-
-const fetchPlaces = function ({}, {}, {}) {
+const fetchPlaces = function (checklist, checkListStates, checkListCities) {
   $.ajax({
     type: 'POST',
     url: 'http://0.0.0.0:5001/api/v1/places_search/',
     contentType: 'application/json',
     data: JSON.stringify({ amenities: Object.keys(checklist), states: Object.keys(checkListStates), cities: Object.keys(checkListCities) })
   }).done(function (data) {
-      $('section.places').empty();
+    $('section.places').empty();
     $.each(data, function (index, place) {
       $.get('http://0.0.0.0:5001/api/v1/users/' + place.user_id, data => {
         const first = data.first_name;
@@ -98,7 +97,6 @@ const fetchPlaces = function ({}, {}, {}) {
     });
   });
 };
-
 
 $(() => {
   checkAmenities();
