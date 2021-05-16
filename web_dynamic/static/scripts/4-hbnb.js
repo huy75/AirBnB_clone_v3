@@ -34,6 +34,7 @@ const fetchPlaces = function (amenitiesFilter = {}) {
     data: JSON.stringify({ amenities: Object.keys(checklist) })
   }).done(function (data) {
       $('section.places').empty();
+      console.log(data);
     $.each(data, function (index, place) {
       $.get('http://0.0.0.0:5001/api/v1/users/' + place.user_id, data => {
         const first = data.first_name;

@@ -26,12 +26,49 @@ const checkApiStatus = function () {
   });
 };
 
-const fetchPlaces = function (amenitiesFilter = {}) {
+const checkListStates = {};
+
+const checkStates = function () {
+  let states = [];
+  $('.locations INPUT:checkbox').change(function () {
+    if ($(this).is(':checked')) {
+      const key = $(this).attr('data-id');
+      const value = $(this).attr('data-name');
+      checkListStates[key] = value;
+    }
+    if (!$(this).is(':checked')) {
+      delete checkListStates[$(this).attr('data-id')];
+    }
+    states = Object.values(checkListStates);
+    $('.locations h4').text(states.join(', '));
+  });
+};
+
+const checkListCities = {};
+
+const checkCities = function () {
+  let cities = [];
+  $('.locations INPUT:checkbox').change(function () {
+    if ($(this).is(':checked')) {
+      const key = $(this).attr('data-id');
+      const value = $(this).attr('data-name');
+      checkListCities[key] = value;
+    }
+    if (!$(this).is(':checked')) {
+      delete checkListCities[$(this).attr('data-id')];
+    }
+    cities = Object.values(checkListCities);
+    $('.locations h4').text(cities.join(', '));
+  });
+};
+
+
+const fetchPlaces = function ({}, {}, {}) {
   $.ajax({
     type: 'POST',
     url: 'http://0.0.0.0:5001/api/v1/places_search/',
     contentType: 'application/json',
-    data: JSON.stringify({ amenities: Object.keys(checklist), states: Object.keys(checkListStates) })
+    data: JSON.stringify({ amenities: Object.keys(checklist), states: Object.keys(checkListStates), cities: Object.keys(checkListCities) })
   }).done(function (data) {
       $('section.places').empty();
     $.each(data, function (index, place) {
@@ -62,39 +99,14 @@ const fetchPlaces = function (amenitiesFilter = {}) {
   });
 };
 
-const checkListStates = {};
 
-const checkStates = function () {
-  let states = [];
-  $('.locations INPUT:checkbox').change(function () {
-    if ($(this).is(':checked')) {
-      const key = $(this).attr('data-id');
-      const value = $(this).attr('data-name');
-      checkListStates[key] = value;
-    }
-    if (!$(this).is(':checked')) {
-      delete checkListStates[$(this).attr('data-id')];
-    }
-    states = Object.values(checkListStates);
-    $('.locations h4').text(states.join(', '));
-  });
-};
-
-/*
-const fetchPlaces = function (amenitiesFilter = {}) {
-  $.ajax({
-    type: 'POST',
-    url: 'http://0.0.0.0:5001/api/v1/places_search/',
-    contentType: 'application/json',
-    data: JSON.stringify({ amenities: Object.keys(checklist) })
-  }).done(function (data) {})}
-*/
 $(() => {
   checkAmenities();
   checkStates();
+  checkCities();
   checkApiStatus();
-  fetchPlaces(checklist);
+  fetchPlaces(checklist, checkListStates, checkListCities);
   $('button').on('click', () => {
-    fetchPlaces(checklist);
+    fetchPlaces(checklist, checkListStates, checkListCities);
   });
 });
