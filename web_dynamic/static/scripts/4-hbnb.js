@@ -1,5 +1,6 @@
+const checklist = {};
+
 const checkAmenities = function () {
-  const checklist = {};
   let amen = [];
   $('INPUT:checkbox').change(function () {
     if ($(this).is(':checked')) {
@@ -33,10 +34,10 @@ const fetchPlaces = function (amenitiesFilter = {}) {
     data: '{}'
   }).done(function (data) {
     $.each(data, function (index, place) {
-      $.get('http://0.0.0.0:5001/api/v1/users/'+ place.user_id, data => {
-    const first = data.first_name
-    const last = data.last_name
-    const str =
+      $.get('http://0.0.0.0:5001/api/v1/users/' + place.user_id, data => {
+        const first = data.first_name;
+        const last = data.last_name;
+        const str =
       `<article>
       <div class="title_box">
             <h2>${place.name}</h2>
@@ -54,25 +55,25 @@ const fetchPlaces = function (amenitiesFilter = {}) {
               ${place.description}
             </div>
           </article>`;
-      $('section.places').append(str);
-    });});
-    }
-  );
+        $('section.places').append(str);
+      });
+    });
+  });
 };
 
-$("section button").click(function() {
-    $.ajax({
-  type: 'POST',
-  url: 'http://0.0.0.0:5001/api/v1/places_search/',
-  contentType: 'application/json',
-  data: JSON.stringify({amenities: Object.keys(checklist)})
-}).done(function (data2) {
+$('section button').click(function () {
+  $.ajax({
+    type: 'POST',
+    url: 'http://0.0.0.0:5001/api/v1/places_search/',
+    contentType: 'application/json',
+    data: JSON.stringify({ amenities: Object.keys(checklist) })
+  }).done(function (data2) {
     $('section.places').empty();
-      $.each(data2, function (index, place) {
-    $.get('http://0.0.0.0:5001/api/v1/users/'+ place.user_id, user => {
-    const first = user.first_name
-    const last = user.last_name
-    const str =
+    $.each(data2, function (index, place) {
+      $.get('http://0.0.0.0:5001/api/v1/users/' + place.user_id, user => {
+        const first = user.first_name;
+        const last = user.last_name;
+        const str =
     `<article>
       <div class="title_box">
           <h2>${place.name}</h2>
@@ -90,17 +91,17 @@ $("section button").click(function() {
             ${place.description}
           </div>
         </article>`;
-    $("section.places").append(str);
-  });});
+        $('section.places').append(str);
+      });
+    });
+  });
 });
-});
- });
 
 $(() => {
   checkAmenities();
   checkApiStatus();
-  fetchPlaces(checkedAmenities);
+  fetchPlaces(checklist);
   $('button').on('click', () => {
-    fetchPlaces(checkedAmenities);
+    fetchPlaces(checklist);
   });
 });
